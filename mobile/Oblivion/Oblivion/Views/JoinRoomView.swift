@@ -8,28 +8,31 @@ struct JoinRoomView: View {
 
     var body: some View {
         VStack(spacing: 20) {
+            Spacer()
             Text("Join Game")
                 .font(.largeTitle)
                 .padding()
             
             TextField("Room Code", text: $roomCode)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                .multilineTextAlignment(.center)
                 .padding()
-
             TextField("Player Name", text: $playerName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                .multilineTextAlignment(.center)
                 .padding()
 
             Button(action: {
                 socket.joinRoom(roomID: roomCode, playerName: playerName)
             }) {
                 Text("Join Room")
-                    .padding()
-                    .background(Color.blue)
+                    .padding(10)
+                    .background(Color.black)
                     .foregroundColor(.white)
-                    .cornerRadius(8)
+                    .cornerRadius(10)
             }
             .disabled(roomCode.isEmpty || playerName.isEmpty || !socket.isConnected)
+            Spacer()
 
             if let errorMessage = socket.errorMessage {
                 Text("Error: \(errorMessage)")
@@ -50,6 +53,9 @@ struct JoinRoomView: View {
         }
         .onDisappear {
             socket.disconnect()
+        }
+        .navigationDestination(isPresented: $socket.playerJoined) {
+          GameView(roomCode: self.roomCode, playerName: self.playerName)
         }
     }
 }

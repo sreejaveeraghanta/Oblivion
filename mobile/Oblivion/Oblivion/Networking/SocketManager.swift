@@ -8,6 +8,7 @@ final class SocketService : ObservableObject {
     let socket: SocketIOClient
 
     @Published var isConnected = false
+    @Published var playerJoined = false
     @Published var errorMessage: String?
 
     private init() {
@@ -32,8 +33,15 @@ final class SocketService : ObservableObject {
         socket.on("error") {data, _ in
             DispatchQueue.main.async {
                 self.errorMessage = data.first as? String
+                self.playerJoined = false
             }
         }
+        socket.on("playerJoined") {_, _ in
+            DispatchQueue.main.async {
+                self.playerJoined = true
+            }
+        }
+            
     }
 
     func connect() {
