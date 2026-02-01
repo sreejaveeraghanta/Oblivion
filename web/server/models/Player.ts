@@ -29,4 +29,10 @@ export class Player extends Model {
     defaultValue: true,
   })
   isConnected!: boolean;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  turnNumber!: number;
 }

@@ -31,4 +31,10 @@ export class Game extends Model {
     references: { model: 'players', key: 'playerId' },
   })
   currentPlayer!: string;
+
+  @Column({
+    type: DataType.INTEGER,
+    defaultValue: 0,
+  })
+  currentTurn!: number;
 }
