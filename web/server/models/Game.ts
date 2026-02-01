@@ -26,9 +26,8 @@ export class Game extends Model {
   elapsedTime!: number;
 
   @Column({
-    type: DataType.STRING,
-    allowNull: false,
-    references: { model: 'players', key: 'playerId' },
+    type: DataType.INTEGER,
+    defaultValue: 0,
   })
-  currentPlayer!: string;
+  currentTurn!: number;
 }
