@@ -1,13 +1,14 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Game } from './Game.js';
 
 @Table({
   timestamps: true,
   tableName: 'players',
 })
 export class Player extends Model {
+  @PrimaryKey
   @Column({
     type: DataType.STRING,
-    primaryKey: true,
   })
   playerId!: string;
 
@@ -17,12 +18,14 @@ export class Player extends Model {
   })
   playerName!: string;
 
+  @ForeignKey(() => Game)
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    references: { model: 'games', key: 'gameId' },
   })
   gameId!: string;
+  @BelongsTo(() => Game)
+  game!: Game;
 
   @Column({
     type: DataType.BOOLEAN,

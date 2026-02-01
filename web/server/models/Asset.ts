@@ -1,13 +1,13 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey } from 'sequelize-typescript';
 
 @Table({
   timestamps: true,
   tableName: 'assets',
 })
 export class Asset extends Model {
+  @PrimaryKey
   @Column({
     type: DataType.STRING,
-    primaryKey: true,
   })
   assetId!: string;
 
