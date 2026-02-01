@@ -6,12 +6,18 @@ struct GameView: View {
 
     var body: some View {
         VStack {
-            Text("Room Code: \(roomCode)")
-                .font(.largeTitle)
-                .padding()
-            Text("Your Name: \(playerName)")
-                .font(.largeTitle)
-                .padding()
-        }
+            HStack
+            {
+                Text("Room Code: \(roomCode)")
+                    .font(.system(size: 20))
+                    .padding()
+                Text("Your Name: \(playerName)")
+                    .font(.system(size: 20))
+                    .padding()
+            }
+            Spacer()
+                
+        }.navigationBarBackButtonHidden(true) // user can only exit the game if they specifically choose to.
+           
     }
 }

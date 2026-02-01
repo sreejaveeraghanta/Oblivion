@@ -1,4 +1,10 @@
 node_modules/
 .DS_Store
 .env
+
+# Xcode
 Oblivion.xcodeproj/;
+xcuserdata/
+build/
+DerivedData/
+

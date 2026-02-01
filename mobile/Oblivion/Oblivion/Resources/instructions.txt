@@ -1,0 +1,23 @@
+A game of bluff and deceit
+
+The objective is to be the last person with influence in the game, so don't let your opponents fool you. Play smart and Stay in the game
+Bluff, lie anc cheat your way through!
+
+ACTIONS
+On each round, you can only do one of the following actions:
+- Take a coin as income
+- Take two coins as foreign aid
+- Claim a role and perform its action
+
+On someone else's turn
+- block their action
+- challenge their claim on the rule
+
+
+POSSIBLE ROLES
+- Duke: take 3 coins from treasury
+- Captain: steal 2 coins from a target player
+- Assassin: pay 3 coins to treasury to target a player - target loses influence
+- Contenssa: block assassination
+- Ambassador: draw two replacement cards and swap out one of your roles with another one from the drawn cards
+

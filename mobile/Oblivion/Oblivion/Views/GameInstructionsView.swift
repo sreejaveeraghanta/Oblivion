@@ -1,38 +1,46 @@
 import SwiftUI
 
+// Current implementation of Oblivion is a clone of Coup, so the instructions
+// reflect coup's instructions until Oblivion comes into existence
 struct GameInstructionsView: View {
+    @State private var gameInstructions = ""
     var body: some View {
-        //TODO fill in game instructions and rules into each section of this page
-        ScrollView {
-            VStack {
-                Text("Welcome to Oblivion!").font(.system(size: 35)).padding(10)
+        ZStack {
+            LinearGradient(colors: [.purple, .blue], startPoint: .top, endPoint: .bottom).ignoresSafeArea()
+            
+            ScrollView {
+                Text("Welcome to Oblivion!").padding().font(.system(size: 30) .bold())
+                VStack(alignment: .leading, spacing: 20) {
+                    Text(gameInstructions)
+                        .foregroundColor(.black)
+                        .padding()
+                        .multilineTextAlignment(.center)
+                        .font(.system(size: 25))
+                }
             }
-            VStack {
-                Text("Contents")
-            }.padding()
             
-            VStack {
-                Text("Objective")
-            }.padding()
-            
-            VStack {
-                Text("Set Up")
-            }.padding()
-            
-            VStack {
-                Text("Rules")
-            }.padding()
-            
-            VStack {
-                Text("Game Play")
-            }
-            .padding()
-            
-            VStack {
-                Text("Actions")
-            }.padding()
-        }.padding()
+        }.onAppear() {
+            readGameInstructions()
+        }
     }
+    
+    // This function reads the game instructions from Resources/instructions
+    func readGameInstructions() {
+        if let filePath = Bundle.main.url(forResource: "instructions", withExtension: "txt") {
+            do {
+                let content = try String(contentsOf: filePath, encoding: .utf8)
+                
+                gameInstructions = content
+            } catch {
+                print("error reading game instructions")
+            }
+        }
+        else {
+            print("error loading file")
+        }
+    
+    }
+
 }
 
 #Preview {
