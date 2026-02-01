@@ -1,6 +1,6 @@
 import { Table, Column, Model, DataType, PrimaryKey, ForeignKey, BelongsTo } from 'sequelize-typescript';
-import { Player } from './Player.js';
 import { Asset } from './Asset.js';
+import { Game } from './Game.js';
 
 @Table({
   timestamps: true,
@@ -8,13 +8,13 @@ import { Asset } from './Asset.js';
 })
 export class SharedAsset extends Model {
   @PrimaryKey
-  @ForeignKey(() => Player)
+  @ForeignKey(() => Game)
   @Column({
     type: DataType.STRING,
   })
-  playerId!: string;
-  @BelongsTo(() => Player)
-  player!: Player;
+  gameId!: string;
+  @BelongsTo(() => Game)
+  game!: Game;
 
   @PrimaryKey
   @ForeignKey(() => Asset)
