@@ -3,10 +3,45 @@ import http from "http"
 import { Server, Socket } from "socket.io"
 import { createRoom, joinRoom } from "./rooms.js"
 import dotenv from "dotenv"
+import path from "path"
+import { fileURLToPath } from "url"
+import { Sequelize } from 'sequelize-typescript';
+import dbConfig from './config/db_config.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 dotenv.config()
 const app = express()
 const server = http.createServer(app)
+
+const sequelize = new Sequelize(
+  dbConfig.dev.database,
+  dbConfig.dev.username,
+  dbConfig.dev.password ?? '',
+  {
+    host: dbConfig.dev.host,
+    dialect: dbConfig.dev.dialect,
+    modelPaths: [path.join(__dirname, 'models')],
+    logging: console.log,
+  },
+);
+
+async function testConnection() {
+  try {
+    await sequelize.authenticate();
+    console.log('✅ Connection has been established successfully.');
+
+    // sync({ alter: true }) checks the current state of the DB 
+    // and makes necessary changes to match models
+    await sequelize.sync({ alter: true });
+    console.log('📂 All models were synchronized successfully.');
+  } catch (error) {
+    console.error('❌ Unable to connect to the database:', error);
+  }
+}
+
+testConnection();
 
 const io = new Server(server, {
     cors: {
