@@ -20,8 +20,7 @@ export class Game extends Model {
   gameStatus!: string;
 
   @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
+    type: DataType.DATE,
   })
   elapsedTime!: number;
 
